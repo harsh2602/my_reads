@@ -1,7 +1,6 @@
 import React, { Component } from  'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { search } from '../utils/BooksAPI';
 import Book from './Book';
 
