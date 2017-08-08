@@ -19,8 +19,6 @@ class App extends Component {
   }
 
   onShelfChange = (book, shelf) => {
-    // Suggestion from Udacity review to render the state faster
-    // Was initially doing it by calling getAll()
     if (book.shelf !== shelf) {
       update(book, shelf).then(() => {
         book.shelf = shelf
