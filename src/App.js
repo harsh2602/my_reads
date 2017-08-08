@@ -19,13 +19,26 @@ class App extends Component {
   }
 
   onShelfChange = (book, shelf) => {
-    update(book, shelf).then(res => {
-      getAll().then(books => {
-        this.setState({
-          books
-        })
+    // update(book, shelf).then(res => {
+    //   getAll().then(books => {
+    //     this.setState({
+    //       books
+    //     })
+    //   })
+    // })
+
+    // Suggestion from Udacity review to render the state faster
+    if (book.shelf !== shelf) {
+      update(book, shelf).then(() => {
+        book.shelf = shelf
+
+        // Filter out the book and append it to the end of the list
+        // so it appears at the end of whatever shelf it was added to.
+        this.setState(state => ({
+          books: state.books.filter(b => b.id !== book.id).concat([ book ])
+        }))
       })
-    })
+    }
   };
 
   render() {
@@ -42,6 +55,7 @@ class App extends Component {
         />
         <Route path='/search' render={() => (
           <SearchBooks
+            books={books}
             onShelfChange={this.onShelfChange}
         />
         )}

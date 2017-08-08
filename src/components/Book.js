@@ -16,11 +16,7 @@ class Book extends Component {
 				<div className='book-top'>
 					<img
 						className='book-cover'
-						style={{
-							width: 128,
-							height: 193,
-						}}
-						src={book.imageLinks.thumbnail}
+						src={book.imageLinks.thumbnail ? book.imageLinks.thumbnail : ''}
 						alt={book.title}
 					></img>
 					<BookShelfChanger

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 class BookShelfChanger extends Component {
 	static propTypes = {
-		book: PropTypes.object.isRequired
+		book: PropTypes.object.isRequired,
+		onShelfChange: PropTypes.func.isRequired
 	};
 
 	render() {
@@ -12,7 +13,7 @@ class BookShelfChanger extends Component {
 			<div className="book-shelf-changer">
         <select
 					defaultValue={book.shelf}
-					onChange={(event) => onShelfChange(book, event.target.value)}>
+					onChange={event => onShelfChange(book, event.target.value)}>
           <option value="none" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

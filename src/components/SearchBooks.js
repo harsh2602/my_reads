@@ -1,21 +1,36 @@
 import React, { Component } from  'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { search } from '../utils/BooksAPI';
 import Book from './Book';
 
 class SearchBooks extends Component {
   static propTypes = {
+    books: PropTypes.array.isRequired,
     onShelfChange: PropTypes.func.isRequired
   };
 
   state = {
-		searchResults: [],
+		searchResults: []
 	}
 
   searchBooks = (query, maxResults) => {
     query.length > 0 && search(query, maxResults).then(searchResults => {
-      searchResults === undefined ? this.setState({ searchResults: [] }) : this.setState({ searchResults })
+      searchResults === undefined ?
+      this.setState({ searchResults: [] }) :
+      searchResults = searchResults.map(book => {
+        const bookInShelf = this.props.books.find(b => b.id === book.id);
+        if(bookInShelf) {
+          book.shelf = bookInShelf.shelf;
+        } else {
+          book.shelf = 'none';
+        }
+        return book;
+      })
+      if(this.state.searchResults !== searchResults) {
+        this.setState({ searchResults });
+      }
     })
   };
 
