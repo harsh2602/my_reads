@@ -19,6 +19,16 @@ class App extends Component {
   }
 
   onShelfChange = (book, shelf) => {
+    // Inefficient way
+    
+    // update(book, shelf).then(res => {
+    //   getAll().then(books => {
+    //     this.setState({
+    //       books
+    //     })
+    //   })
+    // })
+    
     if (book.shelf !== shelf) {
       update(book, shelf).then(() => {
         book.shelf = shelf
